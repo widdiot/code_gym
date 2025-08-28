@@ -1,0 +1,7 @@
+array
+linked list
+stack
+two pointer
+sliding window
+binary search
+tree
