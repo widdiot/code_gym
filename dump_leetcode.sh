@@ -14,14 +14,15 @@ if [ "$#" -ne 1 ]; then
     usage
 fi
 
-# Assign the first argument to the cookies variable
-cookies=$1
-
 # Check if the cookies file exists
-if [ ! -f "$cookies" ]; then
+if [ ! -f "$1" ]; then
     echo "Error: Cookies file '$cookies' not found."
     exit 1
 fi
 
+# Assign the first argument to the cookies variable
+cookies=$(cat "$1")
+
 # Export LeetCode submissions using the provided cookies
+echo "leetcode-export --cookies $cookies --folder ./submissions"
 leetcode-export --cookies "$cookies" --folder ./submissions

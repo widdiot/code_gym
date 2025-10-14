@@ -20,6 +20,7 @@ class Submission:
     runtime: str
     memory: str
     file_path: str
+    phase: int = 0
 
     def runtime_ms(self) -> Optional[float]:
         return parse_runtime(self.runtime)
@@ -54,6 +55,9 @@ class Problem:
 
     def accepted_submissions(self) -> int:
         return sum(1 for s in self.submissions if s.status.lower() == "accepted")
+
+    def failed_submissions(self) -> int:
+        return sum(1 for s in self.submissions if s.status.lower() != "accepted")
 
     def last_submission(self) -> Optional[Submission]:
         if not self.submissions:
@@ -169,40 +173,6 @@ class Problem:
             "last_status": last.status if last else None,
         }
 
-# class Problem:
-#     def __init__(self, question_id, title_slug, difficulty=None):
-#         self.question_id = question_id
-#         self.title_slug = title_slug
-#         self.difficulty = difficulty
-#         self.submissions = []
-    
-#     def __str__(self):
-#         return f"Problem({self.question_id}, {self.title_slug}, submissions={len(self.submissions)})"
-
-#     def __repr__(self):
-#         return self.__str__()
-
-#     def add_submission(self, submission):
-#         self.submissions.append(submission)
-
-#     def compute_stats(self):
-#         total = len(self.submissions)
-#         accepted = sum(1 for s in self.submissions if s.status.lower() == "accepted")
-#         first = min(self.submissions, key=lambda s: s.submitted_at, default=None)
-#         last = max(self.submissions, key=lambda s: s.submitted_at, default=None)
-#         return {
-#             "total_submissions": total,
-#             "accepted_submissions": accepted,
-#             "first_submission_at": first.submitted_at if first else None,
-#             "last_submission_at": last.submitted_at if last else None,
-#             "last_status": last.status if last else None,
-#         }
-
-# class Submission:
-#     def __init__(self, problem, submitted_at, status, runtime, memory, file_path):
-#         self.problem = problem
-#         self.submitted_at = submitted_at
-#         self.status = status
-#         self.runtime = runtime
-#         self.memory = memory
-#         self.file_path = file_path
+    def get_submission_history(self) -> List[Submission]:
+        """Return the submission history for the problem."""
+        return sorted(self.submissions, key=lambda s: s.submitted_at)

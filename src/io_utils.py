@@ -27,13 +27,22 @@ def load_problems_from_csv(items_csv: Path, subs_csv: Path) -> Dict[str, Problem
         for r in reader:
             items.append(r)
 
+    category_map = {}
+    with open("out/categories.csv", "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for r in reader:
+            qid = (r.get("question_id") or "").strip()
+            category = (r.get("category") or "").strip()
+            if qid and category:
+                # Map question_id to category
+                category_map[qid] = category
+
     problems: Dict[str, Problem] = {}
     for it in items:
-        qid = (it.get("question_id") or "").strip() or None
-        slug = (it.get("title_slug") or "").strip() or None
-        title = it.get("title") or None
-        difficulty = it.get("difficulty") or None
-        category = it.get("category")
+        qid = (it.get("question_id") or "").strip()
+        slug = (it.get("title_slug") or "").strip()
+        difficulty = it.get("difficulty")
+        category = category_map.get(qid)
 
         prob = Problem(qid, slug, difficulty=difficulty, category=category)
         # Use question_id as the common key

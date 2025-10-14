@@ -29,10 +29,10 @@ class Tracker:
     def __init__(self, rows: Optional[Dict[str, TrackerRow]] = None) -> None:
         self.rows: Dict[str, TrackerRow] = rows or {}
 
-    def is_due(self, problem_id: str, reference_date: date) -> bool:
-        row = self.rows.get(problem_id)
+    def is_due(self, problem: Problem, reference_date: date) -> bool:
+        row = self.rows.get(problem.question_id)
         if not row:
-            # If we don't know the problem just treat it as due
+            # If the problem is not in the tracker, treat as never reviewed: always due
             return True
         return row.next_due <= reference_date
 
@@ -64,7 +64,7 @@ class SimplePlanner:
     def generate_plan(self) -> List[PlanItem]:
         due_problems: List[PlanItem] = []
         for p in self.problems:
-            if self.tracker.is_due(p.question_id, self.reference_date.date()):
+            if self.tracker.is_due(p, self.reference_date.date()):
                 ns = NeedScore(p, self.reference_date)
                 due_problems.append(PlanItem(problem=p, need_score=ns))
         # sort high to low need score

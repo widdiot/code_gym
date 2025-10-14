@@ -52,7 +52,9 @@ class NeedScore:
         return 40.0 * math.log1p(days) / math.log1p(60.0)
 
     def _compute_struggle(self) -> float:
-        return min(30.0, 6.0 * self.problem.total_submissions())
+        failed_submissions = self.problem.failed_submissions()
+        # Heuristic: 6 points per failed submission, capped at 30
+        return min(30.0, 6.0 * failed_submissions)
 
     def _compute_difficulty(self) -> float:
         diff = (self.problem.difficulty or "").lower()
