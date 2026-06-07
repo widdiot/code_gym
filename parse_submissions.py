@@ -1,56 +1,42 @@
-
-import csv
+import json
 from pathlib import Path
 from datetime import datetime
 from src.parsing import parse_problem_dir_name, parse_problem_difficulty, parse_submission_filename
-from src.core import Problem, Submission
-from src.io_utils import write_csv
 
-
-def main(export_dir, out_dir):
+def main(export_dir, out_file):
     export_dir = Path(export_dir)
-    out_dir = Path(out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
+    out_file = Path(out_file)
+    out_file.parent.mkdir(parents=True, exist_ok=True)
 
-    problems = {}
     submissions_rows = []
+
+    if not export_dir.exists():
+        print(f"Error: Export directory '{export_dir}' does not exist.")
+        return
 
     for problem_dir in sorted(export_dir.iterdir()):
         if not problem_dir.is_dir():
             continue
+        # Skip hidden directories
+        if problem_dir.name.startswith("."):
+            continue
+
         qid, slug = parse_problem_dir_name(problem_dir.name)
+        if not qid:
+            continue
+
         md_file = next(problem_dir.glob("*.md"), None)
         difficulty = parse_problem_difficulty(md_file) if md_file else None
-
-        key = f"{qid}-{slug}"
-        if key not in problems:
-            problems[key] = Problem(qid, slug, difficulty=difficulty)
-
-        problem = problems[key]
 
         for sub_file in problem_dir.glob("*.py"):
             meta = parse_submission_filename(sub_file.name)
             if not meta:
                 continue
-            try:
-                submission_dt = datetime.strptime(meta["submitted_at"], "%Y-%m-%d %H:%M:%S")
-            except ValueError:
-                continue
-
-            submission = Submission(
-                problem=problem,
-                submitted_at=submission_dt,
-                status=meta["status"],
-                runtime=meta["runtime"],
-                memory=meta["memory"],
-                file_path=str(sub_file)
-            )
-            problem.add_submission(submission)
 
             row = {
                 "question_id": qid,
                 "title_slug": slug,
-                "lang": "python3",
+                "difficulty": difficulty,
                 "status": meta["status"],
                 "runtime": meta["runtime"],
                 "memory": meta["memory"],
@@ -60,27 +46,18 @@ def main(export_dir, out_dir):
             }
             submissions_rows.append(row)
 
-    items_map = {}
-    for key, problem in problems.items():
-        stats = problem.compute_stats()
-        items_map[key] = {
-            "question_id": problem.question_id,
-            "title_slug": problem.title_slug,
-            "difficulty": problem.difficulty,
-            "total_submissions": stats["total_submissions"],
-            "accepted_submissions": stats["accepted_submissions"],
-            "first_submission_at": stats["first_submission_at"],
-            "last_submission_at": stats["last_submission_at"],
-            "last_status": stats["last_status"],
-        }
+    # Sort submissions chronologically for consistency
+    submissions_rows.sort(key=lambda x: x["submitted_at"])
 
-    write_csv(submissions_rows, out_dir / "cg_submissions.csv")
-    write_csv(list(items_map.values()), out_dir / "cg_items.csv")
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(submissions_rows, f, indent=2)
+
+    print(f"Successfully parsed {len(submissions_rows)} submissions into {out_file}")
 
 if __name__ == "__main__":
     import argparse
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--export_dir", required=True)
-    ap.add_argument("--out_dir", default=".")
+    ap = argparse.ArgumentParser(description="Parse LeetCode export submissions to a JSON file.")
+    ap.add_argument("--export_dir", default="./submissions", help="Path to submissions directory")
+    ap.add_argument("--out_file", default="out/cg_submissions.json", help="Path to output JSON file")
     args = ap.parse_args()
-    main(args.export_dir, args.out_dir)
+    main(args.export_dir, args.out_file)

@@ -1,72 +1,170 @@
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, timedelta
 from typing import Dict, List, Optional
 from .core import Problem
-from .scoring import NeedScore
 
-# Assuming Problem and NeedScore are defined elsewhere and imported here
+BOX_INTERVALS = {
+    "L1": 1,
+    "L2": 3,
+    "L3": 7,
+    "L4": 15,
+    "L5": 30,
+    "L6": 60
+}
+
+def promote(box: str) -> str:
+    order = ["L1", "L2", "L3", "L4", "L5", "L6"]
+    try:
+        idx = order.index(box)
+        if idx < len(order) - 1:
+            return order[idx + 1]
+    except ValueError:
+        pass
+    return box
 
 @dataclass
-class TrackerRow:
-    """Simple tracker row used for tests.
-
-    In the full system this would include other fields like invariant notes, but
-    here we only record the spaced‑repetition box and the next due date.
-    """
-    id: str
+class LeitnerState:
     box: str
     next_due: date
+    last_attempt_date: date
+    last_attempt_status: str
+    days_overdue: int
 
-
-class Tracker:
-    """A minimal tracker for tests.
-
-    A real implementation would load from and save to CSV.  Here we keep it
-    simple: the tracker is a mapping from problem id to TrackerRow.  When
-    computing due problems the planner will ignore entries that are not due.
-    """
-
-    def __init__(self, rows: Optional[Dict[str, TrackerRow]] = None) -> None:
-        self.rows: Dict[str, TrackerRow] = rows or {}
-
-    def is_due(self, problem: Problem, reference_date: date) -> bool:
-        row = self.rows.get(problem.question_id)
-        if not row:
-            # If the problem is not in the tracker, treat as never reviewed: always due
-            return True
-        return row.next_due <= reference_date
-
-
-@dataclass
-class PlanItem:
-    """Represents a planned study item with its technique and rationale."""
-    problem: Problem
-    need_score: NeedScore
-
-    def __str__(self) -> str:
-        return f"{self.problem.question_id} {self.problem.title_slug} ({self.problem.difficulty}) → {self.need_score.total_score:.1f}: {self.need_score.explain()}"
-
-
-class SimplePlanner:
-    """Generate a sorted list of problems to study based on need score.
-
-    The planner filters out any problems that are not due according to the
-    supplied tracker.  It then computes a `NeedScore` for each remaining
-    problem using the provided reference date and returns a list of
-    `PlanItem` objects sorted by descending need score.
-    """
-
-    def __init__(self, problems: List[Problem], tracker: Tracker, reference_date: datetime) -> None:
+class LeitnerScheduler:
+    def __init__(self, problems: List[Problem], limit_days: int = 30) -> None:
         self.problems = problems
-        self.tracker = tracker
-        self.reference_date = reference_date
+        self.limit_days = limit_days
 
-    def generate_plan(self) -> List[PlanItem]:
-        due_problems: List[PlanItem] = []
+    def simulate_leitner(self, problem: Problem, today: date) -> Optional[LeitnerState]:
+        """Simulate chronological Leitner boxes based on submissions within the active run window.
+        """
+        if not problem.submissions:
+            return None
+
+        # Filter submissions to only those within the active run window (last N days)
+        limit_date = today - timedelta(days=self.limit_days)
+        run_subs = [
+            s for s in problem.submissions 
+            if s.submitted_at.date() >= limit_date
+        ]
+
+        if not run_subs:
+            return None
+
+        # Sort submissions chronologically
+        sorted_subs = sorted(run_subs, key=lambda s: s.submitted_at)
+        
+        # Group submissions by calendar date
+        daily_submissions: Dict[date, List[str]] = {}
+        for sub in sorted_subs:
+            d = sub.submitted_at.date()
+            if d not in daily_submissions:
+                daily_submissions[d] = []
+            daily_submissions[d].append(sub.status)
+
+        sorted_dates = sorted(daily_submissions.keys())
+        
+        # State machine variables
+        box = "L1"
+        next_due = sorted_dates[0]  # dummy initial value
+
+        # Process each date chronologically
+        for i, d in enumerate(sorted_dates):
+            statuses = daily_submissions[d]
+            passed = any(status.lower() == "accepted" for status in statuses)
+
+            if i == 0:
+                # First day with submissions in the active run
+                if passed:
+                    box = "L2"
+                    next_due = d + timedelta(days=BOX_INTERVALS["L2"])
+                else:
+                    box = "L1"
+                    next_due = d + timedelta(days=BOX_INTERVALS["L1"])
+            else:
+                # Subsequent days with attempts
+                if passed:
+                    if d >= next_due:
+                        box = promote(box)
+                    # if solved early, box is kept (no promotion)
+                    next_due = d + timedelta(days=BOX_INTERVALS[box])
+                else:
+                    # any failure on this day resets to L1
+                    box = "L1"
+                    next_due = d + timedelta(days=BOX_INTERVALS["L1"])
+
+        # Determine last attempt date and status
+        last_sub = sorted_subs[-1]
+        last_attempt_date = last_sub.submitted_at.date()
+        last_attempt_status = last_sub.status
+
+        return LeitnerState(
+            box=box,
+            next_due=next_due,
+            last_attempt_date=last_attempt_date,
+            last_attempt_status=last_attempt_status,
+            days_overdue=0  # set dynamically relative to today
+        )
+
+    def get_due_problems(self, today: date) -> List[dict]:
+        """Filter problems by limit_days, simulate Leitner states, and return due problems.
+        """
+        due_list = []
         for p in self.problems:
-            if self.tracker.is_due(p, self.reference_date.date()):
-                ns = NeedScore(p, self.reference_date)
-                due_problems.append(PlanItem(problem=p, need_score=ns))
-        # sort high to low need score
-        due_problems.sort(key=lambda item: item.need_score.score, reverse=True)
-        return due_problems
+            if not p.submissions:
+                continue
+            
+            # Find the most recent submission date
+            latest_sub = max(p.submissions, key=lambda s: s.submitted_at)
+            latest_date = latest_sub.submitted_at.date()
+            
+            # Filter by limit_days (active run constraint)
+            if (today - latest_date).days > self.limit_days:
+                continue
+
+            state = self.simulate_leitner(p, today)
+            if not state:
+                continue
+
+            # Check if due (next_due is today or in the past)
+            if state.next_due <= today:
+                state.days_overdue = (today - state.next_due).days
+                due_list.append({
+                    "problem": p,
+                    "state": state
+                })
+
+        # Sort: smaller boxes first (higher revision priority), then most overdue
+        due_list.sort(key=lambda item: (item["state"].box, -item["state"].days_overdue))
+        return due_list
+
+    def get_upcoming_problems(self, today: date) -> List[dict]:
+        """Filter problems by limit_days, simulate Leitner states, and return upcoming (not due) problems.
+        """
+        upcoming_list = []
+        for p in self.problems:
+            if not p.submissions:
+                continue
+            
+            # Find the most recent submission date
+            latest_sub = max(p.submissions, key=lambda s: s.submitted_at)
+            latest_date = latest_sub.submitted_at.date()
+            
+            # Filter by limit_days (active run constraint)
+            if (today - latest_date).days > self.limit_days:
+                continue
+
+            state = self.simulate_leitner(p, today)
+            if not state:
+                continue
+
+            # Check if upcoming (next_due is in the future)
+            if state.next_due > today:
+                upcoming_list.append({
+                    "problem": p,
+                    "state": state
+                })
+
+        # Sort: next_due date ascending (soonest due first), then box size
+        upcoming_list.sort(key=lambda item: (item["state"].next_due, item["state"].box))
+        return upcoming_list

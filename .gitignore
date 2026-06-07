@@ -1,0 +1,14 @@
+# LeetCode Submissions & Local Output
+submissions/
+out/
+out2/
+
+# Cookies & Environment Files
+.cookies
+.env
+.env.local
+
+# Logs and OS files
+*.log
+debug.log
+.DS_Store
