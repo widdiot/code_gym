@@ -5,7 +5,8 @@ class Solution:
         i = 0 
         for j in range(len(nums)):
             winsum += nums[j]
-            res = max(winsum, res)
+            if winsum > res:
+                res = winsum
             while winsum < 0:
                 winsum -= nums[i]
                 i += 1
