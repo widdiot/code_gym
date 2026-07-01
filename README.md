@@ -11,6 +11,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0121-best-time-to-buy-and-sell-stock](https://github.com/widdiot/code_gym/tree/master/0121-best-time-to-buy-and-sell-stock) |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
 | [0704-binary-search](https://github.com/widdiot/code_gym/tree/master/0704-binary-search) |
+| [0739-daily-temperatures](https://github.com/widdiot/code_gym/tree/master/0739-daily-temperatures) |
 ## Hash Table
 |  |
 | ------- |
@@ -45,6 +46,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0020-valid-parentheses](https://github.com/widdiot/code_gym/tree/master/0020-valid-parentheses) |
 | [0155-min-stack](https://github.com/widdiot/code_gym/tree/master/0155-min-stack) |
+| [0739-daily-temperatures](https://github.com/widdiot/code_gym/tree/master/0739-daily-temperatures) |
 ## Divide and Conquer
 |  |
 | ------- |
@@ -57,4 +59,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0155-min-stack](https://github.com/widdiot/code_gym/tree/master/0155-min-stack) |
+## Monotonic Stack
+|  |
+| ------- |
+| [0739-daily-temperatures](https://github.com/widdiot/code_gym/tree/master/0739-daily-temperatures) |
 <!---LeetCode Topics End-->
