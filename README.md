@@ -44,6 +44,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0020-valid-parentheses](https://github.com/widdiot/code_gym/tree/master/0020-valid-parentheses) |
+| [0155-min-stack](https://github.com/widdiot/code_gym/tree/master/0155-min-stack) |
 ## Divide and Conquer
 |  |
 | ------- |
@@ -52,4 +53,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0003-longest-substring-without-repeating-characters](https://github.com/widdiot/code_gym/tree/master/0003-longest-substring-without-repeating-characters) |
+## Design
+|  |
+| ------- |
+| [0155-min-stack](https://github.com/widdiot/code_gym/tree/master/0155-min-stack) |
 <!---LeetCode Topics End-->
