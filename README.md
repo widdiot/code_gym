@@ -10,6 +10,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0053-maximum-subarray](https://github.com/widdiot/code_gym/tree/master/0053-maximum-subarray) |
 | [0121-best-time-to-buy-and-sell-stock](https://github.com/widdiot/code_gym/tree/master/0121-best-time-to-buy-and-sell-stock) |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
 | [0496-next-greater-element-i](https://github.com/widdiot/code_gym/tree/master/0496-next-greater-element-i) |
 | [0704-binary-search](https://github.com/widdiot/code_gym/tree/master/0704-binary-search) |
 | [0739-daily-temperatures](https://github.com/widdiot/code_gym/tree/master/0739-daily-temperatures) |
@@ -21,6 +22,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0003-longest-substring-without-repeating-characters](https://github.com/widdiot/code_gym/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
 | [0242-valid-anagram](https://github.com/widdiot/code_gym/tree/master/0242-valid-anagram) |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
 | [0496-next-greater-element-i](https://github.com/widdiot/code_gym/tree/master/0496-next-greater-element-i) |
 ## Dynamic Programming
 |  |
@@ -38,6 +40,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
 | [0242-valid-anagram](https://github.com/widdiot/code_gym/tree/master/0242-valid-anagram) |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
 | [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 ## String
 |  |
@@ -56,6 +59,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0053-maximum-subarray](https://github.com/widdiot/code_gym/tree/master/0053-maximum-subarray) |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
 | [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 ## Sliding Window
 |  |
@@ -82,6 +86,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Heap (Priority Queue)
 |  |
 | ------- |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
 | [0703-kth-largest-element-in-a-stream](https://github.com/widdiot/code_gym/tree/master/0703-kth-largest-element-in-a-stream) |
 | [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 ## Binary Tree
@@ -103,5 +108,14 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Quickselect
 |  |
 | ------- |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
 | [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
+## Bucket Sort
+|  |
+| ------- |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
+## Counting
+|  |
+| ------- |
+| [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
 <!---LeetCode Topics End-->
