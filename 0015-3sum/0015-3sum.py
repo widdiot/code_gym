@@ -1,7 +1,6 @@
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
-        def twoSum(arr, target):
-            i, j = 0, len(arr)-1
+        def twoSum(arr, target, i, j):
             res = []
             while i < j:
                 if arr[i] + arr[j] == target:
@@ -17,7 +16,7 @@ class Solution:
         nums = sorted(nums)
         res = set()
         for i in range(len(nums)):
-            ts = twoSum(nums[i+1:], -nums[i])
+            ts = twoSum(nums, -nums[i], i+1, len(nums)-1)
             for x in ts: 
                 x.append(nums[i])
                 res.add(tuple(x))
