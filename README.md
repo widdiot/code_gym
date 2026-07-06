@@ -13,6 +13,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0496-next-greater-element-i](https://github.com/widdiot/code_gym/tree/master/0496-next-greater-element-i) |
 | [0704-binary-search](https://github.com/widdiot/code_gym/tree/master/0704-binary-search) |
 | [0739-daily-temperatures](https://github.com/widdiot/code_gym/tree/master/0739-daily-temperatures) |
+| [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 ## Hash Table
 |  |
 | ------- |
@@ -37,6 +38,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
 | [0242-valid-anagram](https://github.com/widdiot/code_gym/tree/master/0242-valid-anagram) |
+| [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 ## String
 |  |
 | ------- |
@@ -54,6 +56,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0053-maximum-subarray](https://github.com/widdiot/code_gym/tree/master/0053-maximum-subarray) |
+| [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 ## Sliding Window
 |  |
 | ------- |
@@ -80,6 +83,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0703-kth-largest-element-in-a-stream](https://github.com/widdiot/code_gym/tree/master/0703-kth-largest-element-in-a-stream) |
+| [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 ## Binary Tree
 |  |
 | ------- |
@@ -88,4 +92,16 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0703-kth-largest-element-in-a-stream](https://github.com/widdiot/code_gym/tree/master/0703-kth-largest-element-in-a-stream) |
+## Math
+|  |
+| ------- |
+| [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
+## Geometry
+|  |
+| ------- |
+| [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
+## Quickselect
+|  |
+| ------- |
+| [0973-k-closest-points-to-origin](https://github.com/widdiot/code_gym/tree/master/0973-k-closest-points-to-origin) |
 <!---LeetCode Topics End-->
