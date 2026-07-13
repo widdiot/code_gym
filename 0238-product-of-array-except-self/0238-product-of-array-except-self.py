@@ -10,5 +10,8 @@ class Solution:
             suffix_prod[len(nums)-1-i] = sprod
             sprod *= nums[len(nums)-1-i]
 
-        return [prefix_prod[i]*suffix_prod[i] for i in range(len(nums))]
+        res = []
+        for i in range(len(nums)):
+            res.append(prefix_prod[i]*suffix_prod[i])
+        return res
         
