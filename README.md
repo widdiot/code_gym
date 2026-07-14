@@ -10,6 +10,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | [0026-remove-duplicates-from-sorted-array](https://github.com/widdiot/code_gym/tree/master/0026-remove-duplicates-from-sorted-array) |
 | [0034-find-first-and-last-position-of-element-in-sorted-array](https://github.com/widdiot/code_gym/tree/master/0034-find-first-and-last-position-of-element-in-sorted-array) |
 | [0035-search-insert-position](https://github.com/widdiot/code_gym/tree/master/0035-search-insert-position) |
+| [0049-group-anagrams](https://github.com/widdiot/code_gym/tree/master/0049-group-anagrams) |
 | [0053-maximum-subarray](https://github.com/widdiot/code_gym/tree/master/0053-maximum-subarray) |
 | [0121-best-time-to-buy-and-sell-stock](https://github.com/widdiot/code_gym/tree/master/0121-best-time-to-buy-and-sell-stock) |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
@@ -25,6 +26,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0001-two-sum](https://github.com/widdiot/code_gym/tree/master/0001-two-sum) |
 | [0003-longest-substring-without-repeating-characters](https://github.com/widdiot/code_gym/tree/master/0003-longest-substring-without-repeating-characters) |
+| [0049-group-anagrams](https://github.com/widdiot/code_gym/tree/master/0049-group-anagrams) |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
 | [0242-valid-anagram](https://github.com/widdiot/code_gym/tree/master/0242-valid-anagram) |
 | [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
@@ -44,6 +46,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0015-3sum](https://github.com/widdiot/code_gym/tree/master/0015-3sum) |
+| [0049-group-anagrams](https://github.com/widdiot/code_gym/tree/master/0049-group-anagrams) |
 | [0217-contains-duplicate](https://github.com/widdiot/code_gym/tree/master/0217-contains-duplicate) |
 | [0242-valid-anagram](https://github.com/widdiot/code_gym/tree/master/0242-valid-anagram) |
 | [0347-top-k-frequent-elements](https://github.com/widdiot/code_gym/tree/master/0347-top-k-frequent-elements) |
@@ -53,6 +56,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 | ------- |
 | [0003-longest-substring-without-repeating-characters](https://github.com/widdiot/code_gym/tree/master/0003-longest-substring-without-repeating-characters) |
 | [0020-valid-parentheses](https://github.com/widdiot/code_gym/tree/master/0020-valid-parentheses) |
+| [0049-group-anagrams](https://github.com/widdiot/code_gym/tree/master/0049-group-anagrams) |
 | [0242-valid-anagram](https://github.com/widdiot/code_gym/tree/master/0242-valid-anagram) |
 ## Stack
 |  |
