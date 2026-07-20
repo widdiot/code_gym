@@ -9,7 +9,6 @@ class Solution:
             mfreq = max(mfreq, hmap[s[r]])
             num_replacements = r-l+1 - mfreq
             while num_replacements > k:
-                print(hmap)
                 hmap[s[l]] -= 1
                 l += 1
                 mfreq = max(hmap.values())
